@@ -1,25 +1,54 @@
 #include <stdio.h>
 #include "math.h"
 #include <stdlib.h>
-#include <error.h>
+#include <errno.h>
 double sin(double x) {
 	if(x == 0)
-		return 0;	
-	int n;
-	double sum, term;
-	n = 3;
-	sum = x;
-	term = x;
-	while(fabs(term) > 0.00000000000001) {
-		term = ((-1) * term * (x * x)) / (n * (n - 1));
-		sum += term;
-		n = n + 2;		
+		return 0;
+	else if(isnan(x) == 1) {
+		return NAN;
 	}
-	return sum;
+	else if(isinf(x) == 1) {
+		return INFINITY;
+	}
+	else {
+		int flag = 0;
+		if(x < 0) {
+			flag = 1;
+			x = -x;
+		}
+		if(fabs(x) > M_PI_2) { /*term reduction*/
+			while(fabs(x) > 2 * M_PI) {
+				long double y;
+				y = fmod(x, 2 * M_PI);
+				x = y;
+			}
+		}
+		int n;
+		long double sum, term;
+		n = 3;
+		sum = x;
+		term = x;
+		while(fabs(term) > 0.0000000000001) {
+			term = ((-1) * term * (x * x)) / (n * (n - 1));
+			sum += term;
+			n = n + 2;		
+		}
+		if(flag == 1)
+			return -sum;
+		return sum;
+	}
 }
+
 double sinh(double x) {
-	/*if(fabs(x) > INT_MAX)
-		return inf;*/
+	if(fabs(x) > DBL_MAX)
+		return INFINITY;
+	if(isnan(x) == 1 || isinf(x) == 1) {
+		if(isnan(x))
+			return NAN;
+		if(isinf(x))
+			return INFINITY;
+	}
 	if(x == 0)
 		return 0;	
 	double term = x, sum = x;
@@ -30,11 +59,13 @@ double sinh(double x) {
 		i = i + 2;
 	}
 	return sum;
-	/*if(fabs(sum) > INT_MAX)
-		return inf;*/
+	if(fabs(sum) > DBL_MAX)	{
+		errno = ERANGE;
+		return INFINITY;
+	}
 }
 double asin(double x) {
-	int errno = 0, i;
+	int errno, i;
 	long double num, deno, term, sum;
 	if(x > 1. || x < -1.) {
 		errno = EDOM;
@@ -60,20 +91,42 @@ double asin(double x) {
 	}
 }	
 double cos(double x) {
-	double sum = 1, term = 1;
-	int n = 1;
-	while(fabs(term) > 0.00000000000001) {
-		term = (-1) * (term * x * x) / (n * (n-1));
-		sum += term;
-		n = n + 2;
+	if(x == 0)
+		return 1;
+	else if(isnan(x) == 1) {
+		return NAN;
 	}
-	return sum;
+	else if(isinf(x) == 1) {
+		return INFINITY;
+	}
+	else {
+		int flag = 0;
+		if(x < 0)
+			x = -x;		/* cos(-x) = cos(x) */ 
+		if(fabs(x) > M_PI_2) { /* term reduction*/
+			while(fabs(x) > 2 * M_PI) {
+				long double y;
+				y = fmod(x, 2 * M_PI);
+				x = y;
+			}
+		}
+		double sum = 1, term = 1;
+		int n = 1;
+		while(fabs(term) > 0.00000000000001) {
+			term = (-1) * (term * x * x) / (n * (n-1));
+			sum += term;
+			n = n + 2;
+		}
+		return sum;
+	}
 }
 double acos(double x) {
 	if(x >= -1 && x <= 1)
 		return M_PI_2 - asin(x);
-	else
-		errno = EDOM;	 
+	else {
+		errno = EDOM;
+		return NAN; 
+	}	 
 }
 double cosh(double x) {
 	double sum = 1, term = 1;
@@ -86,8 +139,35 @@ double cosh(double x) {
 	return sum;
 }
 double tan(double x) {
-	//error cases not handled.
-	return (sin(x) / cos (x));
+	if(fmod(x, M_PI) == 0)
+		return 0.;
+	else if(isnan(x) == 1) {
+		return NAN;
+	}
+	else if(isinf(x) == 1) {
+		return INFINITY;
+	}
+	else if(fmod(fabs(x), M_PI_2) == 0) {           /* domain error */
+		errno = EDOM;
+		return NAN;
+	}
+	else if(fmod(x, M_PI_4) == 1 && fmod(fabs(x), M_PI_2) != 0)
+		return 1.;
+	else {
+		int flag = 0;
+		if(x < 0) {
+			flag = 1;
+			x = -x;
+		}
+		while(fabs(x) > M_PI) {		/* term reduction */
+			long double y;
+			y = fmod(x, M_PI);
+			x = y;
+		}
+		if(flag == 1)
+			return (-1)*(sin(x) / cos (x));
+		return (sin(x) / cos (x));
+	}
 }
 double tanh(double x) {
 	//error cases not handled.
@@ -105,8 +185,7 @@ double atan(double x) {
 	}
 	return sum;
 }
-double power(int x, int y) {
-	//error cases not handled.
+double pow(double x, double y) {
 	int sign = 0;
 	long term, result;
 	if(x==0) 
@@ -127,7 +206,7 @@ double power(int x, int y) {
 			term = x; 
 			result = 1;
 			while(y) {
-				if(y%2 == 1)
+				if((int)y%2 == 1)
 					result = result * term;
 				y /= 2;
 				term = term * term;
@@ -163,7 +242,7 @@ double exp(double x) {
 		return sum;	
 }
 double floor(double x) {
-	int i= (int)x; 
+	int i = (int)x; 
 	if (i > x) 
 		return (double)(--i);
 	else if(i < x)
@@ -190,39 +269,32 @@ double log(double x) {
 	int errno;
 	if(x < 1) {
 		errno = EDOM;
+		//return nan;
 	}
 	else {	
-		long int n = 3, i;
-		long double sum = x-1, term = 1;
-		while(fabse(term) > 0.000000001) {
-			term = -1 * pow((x - 1), n) / n;
-			sum += term;
-			n += 2;
+		long int i = 1;
+		long double sum = 0, term = 1;
+		while(term > 0.00000000001) {
+			term *= (1-(1/x));
+			sum += term/i;
+			i++;
 		}
 		return sum;
 	}
 }
 double log10(double x) {
 	int errno;
+	long double ans;
 	if(x < 1) {
 		errno = EDOM;
 	}
-	long double ans;
+	else if(fmod(x, 10) == 0) {
+		return x / 10;
+	}
 	else {
 		ans = log(x) / M_LN10;
 		return ans;
 	}		
-}	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+}
+double fmod(double x, double y) {
+}
