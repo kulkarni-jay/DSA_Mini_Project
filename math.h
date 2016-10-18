@@ -11,7 +11,11 @@
 # define M_2_SQRTPI	1.12837916709551257390	/* 2/sqrt(pi) */
 # define M_SQRT2	1.41421356237309504880	/* sqrt(2) */
 # define M_SQRT1_2	0.70710678118654752440	/* 1/sqrt(2) */
-# define ERROR 	1.0e-6
+# define isnan(x) __builtin_isnan (x)
+# define isinf(x) __builtin_isinf_sign (x)
+#include <float.h>
+# define NAN	(__builtin_nanf (""))
+# define INFINITY   (__builtin_inff())
 double acos(double x);
 double asin(double x);
 double atan(double x);	
