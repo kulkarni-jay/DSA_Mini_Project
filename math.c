@@ -2,7 +2,7 @@
 #include "math.h"
 #include <stdlib.h>
 #include <errno.h>
-double sin(double x) {
+double sine(double x) {
 	if(x == 0)
 		return 0;
 	else if(isnan(x) == 1) {
@@ -17,10 +17,10 @@ double sin(double x) {
 			flag = 1;
 			x = -x;
 		}
-		if(fabs(x) > M_PI_2) { /*term reduction*/
-			while(fabs(x) > 2 * M_PI) {
+		if(fabse(x) > M_PI_2) { /* term reduction */
+			while(fabse(x) > 2 * M_PI) {
 				long double y;
-				y = fmod(x, 2 * M_PI);
+				y = fmode(x, 2 * M_PI);
 				x = y;
 			}
 		}
@@ -29,7 +29,7 @@ double sin(double x) {
 		n = 3;
 		sum = x;
 		term = x;
-		while(fabs(term) > 0.0000000000001) {
+		while(fabse(term) > 0.0000000000001) {
 			term = ((-1) * term * (x * x)) / (n * (n - 1));
 			sum += term;
 			n = n + 2;		
@@ -40,8 +40,8 @@ double sin(double x) {
 	}
 }
 
-double sinh(double x) {
-	if(fabs(x) > DBL_MAX)
+double sinhe(double x) {
+	if(fabse(x) > DBL_MAX)
 		return INFINITY;
 	if(isnan(x) == 1 || isinf(x) == 1) {
 		if(isnan(x))
@@ -59,12 +59,12 @@ double sinh(double x) {
 		i = i + 2;
 	}
 	return sum;
-	if(fabs(sum) > DBL_MAX)	{
+	if(fabse(sum) > DBL_MAX)	{
 		errno = ERANGE;
 		return INFINITY;
 	}
 }
-double asin(double x) {
+double asine(double x) {
 	int errno, i;
 	long double num, deno, term, sum;
 	if(x > 1. || x < -1.) {
@@ -90,7 +90,7 @@ double asin(double x) {
 		return sum;
 	}
 }	
-double cos(double x) {
+double cose(double x) {
 	if(x == 0)
 		return 1;
 	else if(isnan(x) == 1) {
@@ -103,16 +103,16 @@ double cos(double x) {
 		int flag = 0;
 		if(x < 0)
 			x = -x;		/* cos(-x) = cos(x) */ 
-		if(fabs(x) > M_PI_2) { /* term reduction*/
-			while(fabs(x) > 2 * M_PI) {
+		if(fabse(x) > M_PI_2) { /* term reduction*/
+			while(fabse(x) > 2 * M_PI) {
 				long double y;
-				y = fmod(x, 2 * M_PI);
+				y = fmode(x, 2 * M_PI);
 				x = y;
 			}
 		}
 		double sum = 1, term = 1;
 		int n = 1;
-		while(fabs(term) > 0.00000000000001) {
+		while(fabse(term) > 0.00000000000001) {
 			term = (-1) * (term * x * x) / (n * (n-1));
 			sum += term;
 			n = n + 2;
@@ -120,15 +120,15 @@ double cos(double x) {
 		return sum;
 	}
 }
-double acos(double x) {
+double acose(double x) {
 	if(x >= -1 && x <= 1)
-		return M_PI_2 - asin(x);
+		return M_PI_2 - asine(x);
 	else {
 		errno = EDOM;
 		return NAN; 
 	}	 
 }
-double cosh(double x) {
+double coshe(double x) {
 	double sum = 1, term = 1;
 	int n = 2;
 	while(term > 0.00000000001) {
@@ -138,8 +138,8 @@ double cosh(double x) {
 	}
 	return sum;
 }
-double tan(double x) {
-	if(fmod(x, M_PI) == 0)
+double tane(double x) {
+	if(fmode(x, M_PI) == 0)
 		return 0.;
 	else if(isnan(x) == 1) {
 		return NAN;
@@ -147,11 +147,11 @@ double tan(double x) {
 	else if(isinf(x) == 1) {
 		return INFINITY;
 	}
-	else if(fmod(fabs(x), M_PI_2) == 0) {           /* domain error */
+	else if(fmode(fabse(x), M_PI_2) == 0) {           /* domain error */
 		errno = EDOM;
 		return NAN;
 	}
-	else if(fmod(x, M_PI_4) == 1 && fmod(fabs(x), M_PI_2) != 0)
+	else if(fmode(x, M_PI_4) == 1 && fmode(fabse(x), M_PI_2) != 0)
 		return 1.;
 	else {
 		int flag = 0;
@@ -159,25 +159,25 @@ double tan(double x) {
 			flag = 1;
 			x = -x;
 		}
-		while(fabs(x) > M_PI) {		/* term reduction */
+		while(fabse(x) > M_PI) {		/* term reduction */
 			long double y;
-			y = fmod(x, M_PI);
+			y = fmode(x, M_PI);
 			x = y;
 		}
 		if(flag == 1)
-			return (-1)*(sin(x) / cos (x));
-		return (sin(x) / cos (x));
+			return (-1)*(sine(x) / cose(x));
+		return (sine(x) / cose(x));
 	}
 }
-double tanh(double x) {
+double tanhe(double x) {
 	//error cases not handled.
-	return (sinh(x) / cosh(x));
+	return (sinhe(x) / coshe(x));
 }
-double atan(double x) {
+double atane(double x) {
 	int i;
 	long double sum = x, term = x;
 	for(i = 1; i < 100 ; i++) {
-		term = pow(x, (2*i -1)) / (2*i - 1);
+		term = powe(x, (2*i -1)) / (2*i - 1);
 		if(i%2 == 0)
 			sum -= term;
 		else
@@ -185,17 +185,38 @@ double atan(double x) {
 	}
 	return sum;
 }
-double pow(double x, double y) {
+double atan2e(double y, double x) {
+	if(x == 0)
+		return NAN;
+	else if(y == 0)
+		return 0;
+	/*
+	else if(part)
+	*/
+	else {
+		long double term = (fabse(y) / fabse(x));
+		if(x > 0 && y > 0) {		/*first quadrant*/
+			return atane(term);
+		}
+		else if(y < 0 && x > 0) {	/*second quadrant*/
+			return -(atane(term));
+		}
+		else if(y < 0 && x < 0) {	/*third quadrant*/
+			return -(M_PI - atane(term));
+		}
+		return	(M_PI - atane(term));			/*fourth quadrant*/
+	}
+}
+
+double powe(double x, double y) {
 	int sign = 0;
 	long term, result;
 	if(x==0) 
-		if(y == 0) {
-			printf("Bad Input \n");
-			exit(1);
-		}
+		if(y == 0)
+			return 1;
 		else 
 			return 	0.0;
-	else {
+	else if((int)y == y){
 		if(y == 0)
 			return 1.0;
 		else {
@@ -217,9 +238,13 @@ double pow(double x, double y) {
 				return (double)result;	
 		}	
 	}
+	else {
+		long double ln = loge(x), exp = y * ln;
+		return (expe(exp));
+	}
 }
-double exp(double x) {
-	int sign, n =1;
+double expe(double x) {
+	int sign = 0, n =1;
 	double term, sum;
 	if(x == 0)
 		return 1;
@@ -241,7 +266,7 @@ double exp(double x) {
 	else 
 		return sum;	
 }
-double floor(double x) {
+double floore(double x) {
 	int i = (int)x; 
 	if (i > x) 
 		return (double)(--i);
@@ -250,7 +275,7 @@ double floor(double x) {
 	else
 		return x;			
 }
-double ceil(double x) {
+double ceile(double x) {
 	int i =(int)x;
 	if (i > x) 
 		return (double)(i);
@@ -259,17 +284,17 @@ double ceil(double x) {
 	else
 		return x;
 }
-double fabs(double x) {
+double fabse(double x) {
 	if(x >= 0)
 		return x;
 	else 
 		return -x;
 }
-double log(double x) {
+double loge(double x) {
 	int errno;
 	if(x < 1) {
 		errno = EDOM;
-		//return nan;
+		return NAN;
 	}
 	else {	
 		long int i = 1;
@@ -282,19 +307,84 @@ double log(double x) {
 		return sum;
 	}
 }
-double log10(double x) {
+double log10e(double x) {
 	int errno;
 	long double ans;
 	if(x < 1) {
 		errno = EDOM;
+		return NAN;
 	}
-	else if(fmod(x, 10) == 0) {
-		return x / 10;
+	else if(fmode(x, 10) == 0) {
+		double count = 0;
+		while(x > 1 ) {
+			x = x / 10;
+			count++;
+		}
+		return count;
 	}
 	else {
-		ans = log(x) / M_LN10;
+		ans = loge(x) / M_LN10;
 		return ans;
 	}		
 }
-double fmod(double x, double y) {
+double fmode(double x, double y) {
+	if(y == 0)
+		return NAN;
+	else if(x == 0)
+		return 0;
+	else{
+		int quo = x / y;
+		return (x - quo * y); 
+	}
+}
+double sqrte(double x) {
+	if(x < 0)
+		return NAN;
+	else if(x == 0)
+		return 0.;
+	else {
+		
+	}
+}
+double ldexpe(double x, int exponent) {
+	long double ans, exp;
+	exp = powe(2, exponent);
+	ans = x * exp;
+	return ans;
+}
+double modfe(double x, double *integer) {
+	double in = (int)x;
+	*integer = in;
+	return (x - *integer);
+}
+double frexpe(double x, int *exponent){
+	if(x == 0) {
+		*exponent = 0;
+		return 0;
+	}
+	/*
+	else if part
+	*/
+	else {
+		int i = 1, sign = 0;
+		if(x < 0) {
+			x = -x;
+			sign = 1;
+		}
+		if(x < 1 && x > 0) {
+			i = -1;
+			while(powe(2, i) > x) {
+				i--;
+			}
+			i++;
+		}
+		else {
+			while(x >= powe(2, i))
+				i++;
+		}
+		*exponent = i;
+		if(sign == 1)
+			return -(x / powe(2, *exponent));
+		return (x / powe(2, *exponent)); 
+	}
 }
