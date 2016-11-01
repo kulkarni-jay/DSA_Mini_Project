@@ -1,4 +1,4 @@
-# math.h
+math.h
 Math Library
 
 /* Yet to implement fmod sqrt modf ldexp frexp functions.
