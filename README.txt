@@ -6,4 +6,6 @@ Math Library
 -S.Y. B.tech Comp
 
 I have implemented the math.h library as part of mini-project.
-To test the functions I have written a test file which will handle the test cases.
+To distinguish between my functions and the original functions the name of my functions end with an 'e'.
+test.c has been used to test the functions.
+inputfile is the file used to provide data to test.c to test the functions.
