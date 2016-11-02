@@ -1,0 +1,173 @@
+sine	nan	nan
+sine	inf	nan
+sine	0.0     0.0
+sine	0.523598775598299     0.5 // PI/6
+sine	1.0	0.841471
+sine	1.047197551196598     0.866025 // PI/3
+sine	1.5	0.997495
+sine	1.57079632679489661923     1.0 // PI/2
+sine	3.14159265358979323846	   0.0	// PI
+cose	0.0	1.0
+cose	nan	nan
+cose 	inf	nan
+cose	0.523598775598299     0.866025 // PI/6
+cose	1.0	0.540302
+cose	1.047197551196598      0.5 // PI/3
+cose	1.5	0.070737
+cose	1.57079632679489661923     0.0 // PI/2
+cose	3.14159265358979323846	   -1.0	// PI
+tane	nan	nan
+tane	inf 	nan
+tane	0.0	0.0
+tane	0.523598775598299     0.577350 // PI/6
+tane	0.78539816339744830962	   1.0 // PI/4
+tane	1.0	1.557407
+tane	1.047197551196598     1.732051 // PI/3
+tane	1.57079632679489661923     inf // PI/2
+tane	3.14159265358979323846     inf //PI
+asine	nan	nan
+asine	inf	nan
+asine	0.0	0.0
+asine	1.0	1.570796
+asine	-1.0	-1.570796
+asine	0.5	0.523599
+asine	-0.5	-0.523599
+asine	-2.0	nan
+asine	2.0	nan
+acose	nan	nan
+acose	inf	nan
+acose	0.0	1.570796
+acose	1.0	0.0
+acose	-1.0	3.141593
+acose	0.5	1.047197
+acose	-0.5	2.094395
+acose	-2.0	nan
+acose	2.0	nan
+atane	nan	nan
+atane	inf	1.570796
+atane	0.0	0.0
+atane	0.577350     0.523598
+atane	1.0	0.780399
+atane	-1.0	-0.780399
+atane	-0.577350    -0.523599
+atane	0.6	0.540420
+atane	-0.6	-0.540420
+atan2e	0.0	0.0	nan
+atan2e	nan	nan	nan
+atan2e	1.2	1.2	0.780399
+atan2e	-1.2	1.2	2.361194
+atan2e	-1.2	-1.2	-2.361194
+atan2e	1.2	-1.2	-0.780399
+sinhe	0.0	0.0
+sinhe	nan	nan	
+sinhe	inf	inf	
+sinhe	0.334	0.340245	
+sinhe	1.0	1.175201	
+sinhe	-0.334	-0.340245
+sinhe	12	81377.395706
+coshe	0.0	1.0	
+coshe	1.0	1.543081	
+coshe	0.456	1.105782	
+coshe	-0.456	1.105782
+coshe	12	81377.395713	
+coshe	nan	nan
+coshe	inf	inf	
+tanhe	1.0	0.761594	
+tanhe	-1.0	-0.761594	
+tanhe	0.0	0.0	
+tanhe	8.0	1.0	
+tanhe	nan	nan
+tanhe	0.997	0.760331			
+powe	0.0	0.0	1.0
+powe	4.5	0.0	1.0
+powe	2.3	11	9528.097579
+powe	12	12	8916100448256.000000
+powe	0.98     0.78     0.984365
+powe	2	nan	nan
+powe	inf	11	inf
+powe	-9.9     12	886384871716.129639
+powe	2.4456   -3.3	0.052279
+floore	0.0	0.0
+floore	nan	nan
+floore	inf	inf
+floore	-9.876	-10.0	
+floore	4.3678	4.0	
+floore	-88.0	-88.0
+ceile	0.0	0.0
+ceile	nan	nan
+ceile	inf	inf
+ceile	-9.876	-9.0	
+ceile	4.3678	5.0	
+ceile	-88.0	-88.0
+fabse	0.0	0.0
+fabse	nan	nan
+fabse	inf	inf
+fabse	-78.04	78.04
+fabse	78.04	78.04
+loge	0.0	inf
+loge	-1.0	nan
+loge	1.0	0.0
+loge	nan	nan
+loge	10.99	2.396986
+loge	100	4.605170
+loge	0.44	-0.820981
+loge	5.0	1.609438
+loge	0.1	-2.302585
+log10e	0.0	inf
+log10e	-1.0	nan
+log10e	1.0	0.0
+log10e	nan	nan
+log10e	10.99	1.040998
+log10e	100	2
+log10e	0.44	-0.356547
+log10e	5.0	0.698970
+log10e	0.1	-1.0
+sqrte	0.0	0.0	
+sqrte	-1.0	nan	
+sqrte	inf	inf	
+sqrte	25	5.0	
+sqrte	11	3.316624	
+sqrte	100	10	
+sqrte	0.123	0.350713
+sqrte	57.78	7.601315
+expe	1.0	2.718282
+expe	0.0	1.0
+expe	-8.76	0.000157
+expe	10	22026.465795
+expe	4.843	126.849329
+expe	nan	nan
+expe 	inf	inf
+expe	0.1234	1.131337
+expe	-0.1234	0.883910
+fmode	0	0	nan
+fmode	0	1	0
+fmode 	inf 	inf	nan 
+fmode	12.0	12.0	0.0
+fmode	nan	nan	nan
+fmode	-89.89	12.22	-4.35
+fmode	3.3142	12.34	3.3142
+fmode	10.2 	-5.6	4.6
+fmode	10.0	2.0	0.0
+frexpe	1.0	0.5
+frexpe	-0.11	-0.88
+frexpe	nan	nan
+frexpe	inf	inf
+frexpe	0.0	0.0
+frexpe	0.11	0.88
+frexpe	12.0	0.75
+frexpe	10.33	0.645625
+ldexpe	0.0	0	0.0
+ldexpe	nan	nan	nan
+ldexpe	12.12 	12	49643.520000
+ldexpe	0.12	2	0.48
+ldexpe	-9.8	2	-39.2
+ldexpe	4.5	6	288
+ldexpe	-9.77	11	-20008.96
+ldexpe	0.0	1	0.0
+modfe	0.0	0.0
+modfe	-12.123	-0.123
+modfe	12.123	0.123
+modfe	nan	nan
+modfe	inf	nan
+modfe	12.0	0.0
+modfe	-12.0	0.0
